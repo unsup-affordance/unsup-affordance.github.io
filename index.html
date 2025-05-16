@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="UAD: Unsupervised Affordance Distillation for Generalization in Robotic Manipulation">
+  <meta name="keywords" content="Affordance Prediction, Foundation Models, Robotic Manipulation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UAD</title>
+
+  <!-- </script> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<!-- <section class="hero">
+  <div class="hero-body">
+    <div class="container is-fullhd">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">UAD: Unsupervised Affordance Distillation<br>for Generalization in Robotic Manipulation</h1>
+          <div class="is-size-5 publication-authors">
+            Submitted to ICRA 2025
+            <a href="./media/appendix.pdf"><h2>[Appendix]</h2></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-fullhd">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">UAD: Unsupervised Affordance Distillation<br>for Generalization in Robotic Manipulation</h1>
+          <h3 class="title is-4 conference-authors"><a target="_blank" href="https://2025.ieee-icra.org/">ICRA 2025 (Best Paper Finalist)</a></h3>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a target="_blank" href="https://tangyihe.com/">Yihe Tang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://wenlong.page/">Wenlong Huang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://www.wykac.com/">Yingke Wang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://www.chengshuli.me/">Chengshu Li</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://www.linkedin.com/in/ryuan19">Roy Yuan</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://ai.stanford.edu/~zharu/">Ruohan Zhang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://jiajunwu.com/">Jiajun Wu</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://profiles.stanford.edu/fei-fei-li">Li Fei-Fei</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Stanford University</span>
+          </div>
+
+          <div class="button-container">
+            <a href="./uad.pdf" target="_blank" class="button"><i class="fa-light fa-file"></i>&emsp14;PDF</a>
+            <!-- <a href="http://arxiv.org/abs/2409.01652" target="_blank" class="button"><i class="ai ai-arxiv"></i>&emsp14;arXiv</a> -->
+            <a class="button disabled" aria-disabled="true" tabindex="-1">
+              <i class="ai ai-arxiv"></i>&emsp14;arXiv&nbsp;
+            </a>
+            <!-- <a href="https://youtu.be/2S8YhBdLdww" target="_blank" class="button"><i class="fa-light fa-film"></i>&emsp14;Video</a> -->
+            <a class="button disabled" aria-disabled="true" tabindex="-1">
+              <i class="fa-light fa-film"></i>&emsp14;Video&nbsp;
+            </a>
+            <a href="https://x.com/wenlong_huang/status/1829135436717142319" target="_blank" class="button"><i class="fa-brands fa-x-twitter"></i>&emsp14;tl;dr</a>
+            <a href="https://github.com/TangYihe/unsup-affordance" target="_blank" class="button"><i class="fa-light fa-code"></i>&emsp14;Code</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+
+  <div class="container is-max-widescreen">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-vcentered  is-centered">
+          <video id="teaser" autoplay muted loop controls height="80%" width="80%">
+            <source src="media/videos/teaser.mp4"
+                    type="video/mp4">
+          </video>
+          </br>
+        </div>
+        <br>
+        <h2 class="subtitle has-text-centered">
+        Unsupervised Affordance Distillation (UAD) distills visual affordances from off-the-shelf foundation models that is fine-grained, task-conditioned, works in-the-wild, in dynamic environments, all without any manual annotations.
+        </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-widescreen">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Understanding fine-grained object affordances is imperative for robots to manipulate objects in unstructured environments given open-ended task instructions. However, existing methods on visual affordance predictions often rely on manually-annotated data or conditions only on predefined set of tasks. We introduce Unsupervised Affordance Distillation (UAD), a method for distilling affordance knowledge from foundation models into a task-conditioned affordance model without any manual annotations. By leveraging the complementary strengths of large vision models and vision-language models, UAD automatically annotates a large-scale dataset with detailed <instruction, visual affordance> pairs. Training only a lightweight task-conditioned decoder atop frozen features, UAD exhibits notable generalization to in-the-wild robotic scenes as well as to various human activities despite only being trained on rendered objects in simulation. Using affordance provided by UAD as the observation space, we demonstrate an imitation learning policy that demonstrates promising generalization to unseen object instances, object categories, and even variations in task instructions after training on as few as 10 demonstrations.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+  </div>
+
+</section>
+
+<section class="section">
+  <div class="container is-max-widescreen">
+
+    <div class="rows">
+
+
+    <!-- Animation. -->
+    <div class="rows is-centered ">
+      <div class="row is-full-width">
+        <h2 class="title is-3">Overview of UAD</h2>
+
+        <!-- Interpolating. -->
+        <div class="content has-text-justified">
+        <!-- <br> -->
+        </div>
+        <img src="media/figures/method.jpg" class="interpolation-image" />
+        </br>
+        </br>
+          <p class="content has-text-justified">
+            Using renderings of 3D objects, we first perform multi-view fusion of DINOv2 features and clustering to obtain fine-grained semantic regions of objects,
+            which are then fed to VLM for proposing relevant tasks and corresponding regions <b>(a)</b>.
+            The extracted affordance is then distilled by training a language-conditioning FiLM atop frozen DINOv2 features <b>(b)</b>.
+            The learned task-conditioned affordance model provides in-the-wild prediction for diverse fine-grained regions, which are used as observation space for manipulation policies <b>(c)</b></b>.
+          </p>
+
+    </div>
+  </div>
+</section>
+
+<!-- ‣‣‣  TWO-IMAGE COMPARISON  ‣‣‣ -->
+<section class="section" id="comparison">
+  <div class="container is-max-widescreen">
+
+    <!-- Section title -->
+    <h2 class="title is-3">Task-Conditioned Affordance Prediction</h2>
+
+    <!-- Images side-by-side -->
+    <div class="columns is-vcentered">
+      <!-- Right image -->
+      <div class="column has-text-centered">
+        <figure class="image side-img">
+          <img src="media/figures/droid-viz.png" alt="DROID Eval Results">
+          <!-- <figcaption>Right image caption (optional)</figcaption> -->
+        </figure>
+      </div>
+      <!-- Left image -->
+      <div class="column has-text-centered">
+        <figure class="image side-img">
+          <img src="media/figures/agd.png" alt="AGD20K Eval Results">
+          <!-- <figcaption>Left image caption (optional)</figcaption> -->
+        </figure>
+      </div>
+    </div>
+
+    <!-- Overall caption -->
+    <p class="subtitle is-5 has-text-centered">
+      Leveraging pre-trained features, UAD can seamlessly generalize to real-world robotic scenes, and even to human activities.
+    </p>
+
+  </div>
+</section>
+
+
+<section class="section" id="affordance-demo">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-3">Interactive Affordance Demo</h2>
+
+    <!-- Skeleton while the Space spins up -->
+    <div id="demo-loader" class="has-text-centered">
+      <p class="subtitle is-5">Waking the model…</p>
+    </div>
+
+    <!-- Hugging Face Space -->
+        <iframe
+      src="https://yiheyihe-unsup-affordance.hf.space"
+      frameborder="0"
+      width="100%"
+      height="550"
+    ></iframe>
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-widescreen">
+
+    <div class="rows">
+      <h2 class="title is-3">Generalization Properties for Policy Learning</h2>
+
+      <p class="content has-text-justified"> Using affordance as a task-conditioned visual representation, policies learned from as few as 10 demonstrations generalize to <b>novel poses</b>, <b>instances</b>, <b>categories</b>, and even to <b>novel instructions</b>, all in a zero-shot manner. Here we show examples of the generalization settings for three tasks in simulation: <b>pour</b>, <b>open</b>, and <b>insertion</b>.</p>
+
+      <div class="field">
+        <!-- <label class="label">Select task to display</label> -->
+        <div class="control">
+          <div>           <!-- Bulma wrapper -->
+            <select id="task-selector">  <!-- plain select, no class -->
+              <option value="pour">Pouring</option>
+              <option value="open">Opening</option>
+              <option value="insert">Insertion</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="task-block" id="task-pour">
+        <h4 class="title is-4">Pouring: hold liquid container and pour into bowl</h4>
+
+        <div class="columns">
+          <!-- Left column for the single video -->
+          <div class="column has-text-centered left-column">
+            <video id="dist1" autoplay muted loop controls width="72%">
+              <source src="media/videos/pour/pour_train.mp4" type="video/mp4">
+            </video>
+            <p>Training Scenario</p>
+          </div>
+        
+          <!-- Right column for the 2x2 grid of videos -->
+          <div class="column right-column">
+            <div class="columns">
+              <div class="column has-text-centered">
+                <video id="dist1" autoplay muted loop controls width="80%">
+                  <source src="media/videos/pour/pour_pose.mp4" type="video/mp4">
+                </video>
+                <p>Unseen Pose</p>
+              </div>
+              <div class="column has-text-centered">
+                <video id="dist1" autoplay muted loop controls width="80%">
+                  <source src="media/videos/pour/pour_instance.mp4" type="video/mp4">
+                </video>
+                <p>Unseen Instance <br> (beer bottle & bowl)</p>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column has-text-centered">
+                <video id="dist1" autoplay muted loop controls width="80%">
+                  <source src="media/videos/pour/pour_category.mp4" type="video/mp4">
+                </video>
+                <p>Unseen Category <br> (beer bottle → coke can)</p>
+              </div>
+              <div class="column has-text-centered">
+                <video id="dist1" autoplay muted loop controls width="80%">
+                  <source src="media/videos/pour/pour_instruction.mp4" type="video/mp4">
+                </video>
+                <p>Unseen Instruction <br> (pour beer → water plant)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="task-block" id="task-open">
+      <h4 class="title is-4">Opening: grasp and pull open revolute cabinet door</h4>
+
+
+      <div class="columns">
+        <!-- Left column for the single video -->
+        <div class="column has-text-centered left-column-25">
+          <video id="dist1" autoplay muted loop controls width="99%">
+            <source src="media/videos/open/open_train.mp4" type="video/mp4">
+          </video>
+          <p>Training Scenario</p>
+        </div>
+      
+        <!-- Right columns containing all three videos in one row -->
+        <div class="column right-column-75">
+          <div class="columns">
+            <div class="column has-text-centered">
+              <video id="dist1" autoplay muted loop controls width="99%">
+                <source src="media/videos/open/open_pose.mp4" type="video/mp4">
+              </video>
+              <p>Unseen Pose</p>
+            </div>
+            <div class="column has-text-centered">
+              <video id="dist1" autoplay muted loop controls width="99%">
+                <source src="media/videos/open/open_instance.mp4" type="video/mp4">
+              </video>
+              <p>Unseen Instance</p>
+            </div>
+            <div class="column has-text-centered">
+              <video id="dist1" autoplay muted loop controls width="99%">
+                <source src="media/videos/open/open_category.mp4" type="video/mp4">
+              </video>
+              <p>Unseen Category <br> (cabinet → fridge)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      
+    
+    <div class="task-block" id="task-insert">
+      <h4 class="title is-4">Insertion: pick pen and insert into pen holder</h4>
+
+      <div class="columns">
+        <!-- Left column for the single video -->
+        <div class="column has-text-centered left-column">
+            <video id="dist1" autoplay muted loop controls width="72%">
+                <source src="media/videos/insert/insert_train.mp4" type="video/mp4">
+            </video>
+            <p>Training Scenario</p>
+        </div>
+      
+        <!-- Right column for the 2x2 grid of videos -->
+        <div class="column right-column">
+            <div class="columns">
+                <div class="column has-text-centered">
+                    <video id="dist1" autoplay muted loop controls width="80%">
+                        <source src="media/videos/insert/insert_pose.mp4" type="video/mp4">
+                    </video>
+                    <p>Unseen Pose</p>
+                </div>
+                <div class="column has-text-centered">
+                    <video id="dist1" autoplay muted loop controls width="80%">
+                        <source src="media/videos/insert/insert_instance.mp4" type="video/mp4">
+                    </video>
+                    <p>Unseen Instance (marker)</p>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column has-text-centered">
+                    <video id="dist1" autoplay muted loop controls width="80%">
+                        <source src="media/videos/insert/insert_category.mp4" type="video/mp4">
+                    </video>
+                    <p>Unseen Category <br> (pen holder → cup)</p>
+                </div>
+                <div class="column has-text-centered">
+                    <video id="dist1" autoplay muted loop controls width="80%">
+                        <source src="media/videos/insert/insert_instruction.mp4" type="video/mp4">
+                    </video>
+                    <p>Unseen Instruction <br> (insert pen → insert carrot)</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+
+</section>
+
+<section class="section">
+  <div class="container is-max-widescreen">
+
+    <div class="rows">
+      <h2 class="title is-3">Real-World Robot Execution</h2>
+      <p class="content has-text-justified">We further show that UAD-based policies can solve real-world tasks. Each policy is trained on 10 demonstrations.</p>
+
+     <!-- ‣‣‣  DROPDOWN #2  ‣‣‣ -->
+      <div class="field">
+        <!-- <label class="label">Select bottom demo</label> -->
+        <div class="control">
+          <div>
+            <select id="video-selector">
+              <option value="pour">Pouring</option>
+              <option value="open">Opening</option>
+              <option value="insert">Insertion</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pouring row -->
+      <div class="video-block" id="bottom-pour">
+        <div class="columns">
+          <div class="column has-text-centered">
+            <video autoplay muted loop controls width="99%">
+              <source src="media/videos/real-speedup/pour-comp.mp4" type="video/mp4">
+            </video>
+            <p>Watering Plant.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Opening row -->
+      <div class="video-block" id="bottom-open">
+        <div class="columns">
+          <div class="column has-text-centered">
+            <video autoplay muted loop controls width="99%">
+              <source src="media/videos/real-speedup/open-comp.mp4" type="video/mp4">
+            </video>
+            <p>Opening Drawer.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Insertion row -->
+      <div class="video-block" id="bottom-insert">
+        <div class="columns">
+          <div class="column has-text-centered">
+            <video autoplay muted loop controls width="99%">
+              <source src="media/videos/real-speedup/insert-comp.mp4" type="video/mp4">
+            </video>
+            <p>Inserting Pen.</p>
+          </div>
+        </div>
+      </div>
+      
+</div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content has-text-centered">
+          <p>
+            Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> and a href="https://rekep-robot.github.io/">ReKep</a>. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  
+    const selector = document.getElementById('task-selector');
+    const blocks   = document.querySelectorAll('.task-block');
+  
+    function showTask(name) {
+      blocks.forEach(b => {
+        /* Add/remove the is-active class */
+        b.classList.toggle('is-active', b.id === 'task-' + name);
+      });
+    }
+  
+    /* 1)  show default ("pour") on first load */
+    showTask(selector.value);
+  
+    /* 2)  update every time the user picks a new option */
+    selector.addEventListener('change', () => showTask(selector.value));
+  
+  });
+  </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  
+    /* ------------- TOP task selector (already working) ------------- */
+    const taskSel = document.getElementById('task-selector');
+    const tasks   = document.querySelectorAll('.task-block');
+    const showTask = name =>
+      tasks.forEach(b => b.classList.toggle('is-active', b.id === 'task-' + name));
+  
+    showTask(taskSel.value);
+    taskSel.addEventListener('change', () => showTask(taskSel.value));
+  
+    /* ------------- BOTTOM video selector --------------------------- */
+    const vidSel  = document.getElementById('video-selector');
+    const vids    = document.querySelectorAll('.video-block');
+    const showVid = name =>
+      vids.forEach(v => v.classList.toggle('show', v.id === 'bottom-' + name));
+  
+    showVid(vidSel.value);                      // default
+    vidSel.addEventListener('change', () => showVid(vidSel.value));
+  
+  });
+  </script>
+
+</body>
+</html>
