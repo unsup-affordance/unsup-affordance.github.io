@@ -9,6 +9,32 @@ body {
   opacity: 0.45;             /* dim it */
 }
 
+.is-bottom-center{
+  margin-left:auto;  /* push it into the middle */
+  margin-right:auto;
+}
+
+.task-picker{
+  display:flex;                 /* put label + select on the same row   */
+  justify-content:center;       /* centre the pair in its parent        */
+  align-items:center;           /* vertical alignment                   */
+  gap:0.75rem;                  /* space between label and dropdown     */
+
+  margin-block: 0 1.5rem;
+}
+
+/* keep the label inline so it doesn’t drop to a new line */
+.task-picker .label{
+  display:inline-block;         /* override Bulma’s block display       */
+  margin-bottom:0;              /* remove default bottom margin         */
+}
+
+/* HIDE ONLY Bulma’s custom arrow, keep the browser’s native arrow */
+.task-picker
+.select:not(.is-multiple):not(.is-loading)::after{
+  display:none !important;
+}
+
 /* ── two-image section ──────────────────────────────────────────── */
 .side-img {
   display: flex;                   /* let us center its img child   */

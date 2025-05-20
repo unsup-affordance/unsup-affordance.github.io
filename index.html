@@ -234,16 +234,15 @@
 
       <p class="content has-text-justified"> Using affordance as a task-conditioned visual representation, policies learned from as few as 10 demonstrations generalize to <b>novel poses</b>, <b>instances</b>, <b>categories</b>, and even to <b>novel instructions</b>, all in a zero-shot manner. Here we show examples of the generalization settings for three tasks in simulation: <b>pour</b>, <b>open</b>, and <b>insertion</b>.</p>
 
-      <div class="field">
-        <!-- <label class="label">Select task to display</label> -->
-        <div class="control">
-          <div>           <!-- Bulma wrapper -->
-            <select id="task-selector">  <!-- plain select, no class -->
-              <option value="pour">Pouring</option>
-              <option value="open">Opening</option>
-              <option value="insert">Insertion</option>
-            </select>
-          </div>
+      <div class="task-picker">   <!-- flex + spacing comes from .task-picker CSS -->
+        <label for="task-selector" class="label mb-0">Select task:</label>
+      
+        <div class="select">
+          <select id="task-selector">
+            <option value="pour">Pouring</option>
+            <option value="open">Opening</option>
+            <option value="insert">Insertion</option>
+          </select>
         </div>
       </div>
       
@@ -297,39 +296,46 @@
       <h4 class="title is-4">Opening: grasp and pull open revolute cabinet door</h4>
 
 
+<!-- 1 × 3 “triangle” video block -->
       <div class="columns">
-        <!-- Left column for the single video -->
-        <div class="column has-text-centered left-column-25">
-          <video id="dist1" autoplay muted loop controls width="99%">
+        <!-- LEFT : single video – matches previous layout -->
+        <div class="column has-text-centered left-column">
+          <video autoplay muted loop controls width="72%">
             <source src="media/videos/open/open_train.mp4" type="video/mp4">
           </video>
           <p>Training Scenario</p>
         </div>
-      
-        <!-- Right columns containing all three videos in one row -->
-        <div class="column right-column-75">
-          <div class="columns">
-            <div class="column has-text-centered">
-              <video id="dist1" autoplay muted loop controls width="99%">
+
+        <!-- RIGHT : 2-on-top, 1-centred-below -->
+        <div class="column">
+          <div class="columns is-mobile is-multiline is-centered">
+            <!-- top-left -->
+            <div class="column is-half-desktop is-half-tablet has-text-centered">
+              <video autoplay muted loop controls width="80%">
                 <source src="media/videos/open/open_pose.mp4" type="video/mp4">
               </video>
               <p>Unseen Pose</p>
             </div>
-            <div class="column has-text-centered">
-              <video id="dist1" autoplay muted loop controls width="99%">
+
+            <!-- top-right -->
+            <div class="column is-half-desktop is-half-tablet has-text-centered">
+              <video autoplay muted loop controls width="80%">
                 <source src="media/videos/open/open_instance.mp4" type="video/mp4">
               </video>
               <p>Unseen Instance</p>
             </div>
-            <div class="column has-text-centered">
-              <video id="dist1" autoplay muted loop controls width="99%">
+
+            <!-- bottom (centre) -->
+            <div class="column is-half-desktop is-half-tablet is-bottom-center has-text-centered">
+              <video autoplay muted loop controls width="80%">
                 <source src="media/videos/open/open_category.mp4" type="video/mp4">
               </video>
-              <p>Unseen Category <br> (cabinet → fridge)</p>
+              <p>Unseen Category <br>(cabinet → fridge)</p>
             </div>
           </div>
         </div>
       </div>
+
       </div>
       
     
@@ -391,51 +397,53 @@
       <p class="content has-text-justified">We further show that UAD-based policies can solve real-world tasks. Each policy is trained on 10 demonstrations.</p>
 
      <!-- ‣‣‣  DROPDOWN #2  ‣‣‣ -->
-      <div class="field">
-        <!-- <label class="label">Select bottom demo</label> -->
-        <div class="control">
-          <div>
-            <select id="video-selector">
-              <option value="pour">Pouring</option>
-              <option value="open">Opening</option>
-              <option value="insert">Insertion</option>
-            </select>
-          </div>
-        </div>
+     <div class="task-picker">       <!-- flex container -->
+      <label for="video-selector" class="label mb-0">Select task:</label>
+    
+      <div class="select">
+        <select id="video-selector">
+          <option value="pour">Pouring</option>
+          <option value="open">Opening</option>
+          <option value="insert">Insertion</option>
+        </select>
       </div>
+    </div>
 
       <!-- Pouring row -->
       <div class="video-block" id="bottom-pour">
+        <h4 class="title is-4">Pouring: hold liquid container and water the plant.</h4>
         <div class="columns">
           <div class="column has-text-centered">
             <video autoplay muted loop controls width="99%">
-              <source src="media/videos/real-speedup/pour-comp.mp4" type="video/mp4">
+              <source src="media/videos/real-speedup/pour.mp4" type="video/mp4">
             </video>
-            <p>Watering Plant.</p>
+            <!-- <p>Watering Plant.</p> -->
           </div>
         </div>
       </div>
 
       <!-- Opening row -->
       <div class="video-block" id="bottom-open">
+        <h4 class="title is-4">Opening: opening drawer. </h4>
         <div class="columns">
           <div class="column has-text-centered">
             <video autoplay muted loop controls width="99%">
-              <source src="media/videos/real-speedup/open-comp.mp4" type="video/mp4">
+              <source src="media/videos/real-speedup/open.mp4" type="video/mp4">
             </video>
-            <p>Opening Drawer.</p>
+            <!-- <p>Opening Drawer.</p> -->
           </div>
         </div>
       </div>
 
       <!-- Insertion row -->
       <div class="video-block" id="bottom-insert">
+        <h4 class="title is-4">Insertion: pick pen and insert into pen holder. </h4>
         <div class="columns">
           <div class="column has-text-centered">
             <video autoplay muted loop controls width="99%">
-              <source src="media/videos/real-speedup/insert-comp.mp4" type="video/mp4">
+              <source src="media/videos/real-speedup/insert.mp4" type="video/mp4">
             </video>
-            <p>Inserting Pen.</p>
+            <!-- <p>Inserting Pen.</p> -->
           </div>
         </div>
       </div>
